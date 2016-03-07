@@ -1,0 +1,9 @@
+1. Download Visual Studio 2008 Express
+2. Compile using "setup.py install"
+3. readPort.readPort(0x0201) gives: "LoadLibrary Failed." and returns -1
+4. Move inpout32.dll to Python27/DLLs
+5. Restarted Python
+6. 3.
+7. 2. 
+8. Success
+

@@ -1,5 +1,16 @@
 from psychopy import parallel, core, event
-import readPort, GlobalVariables
+import os, sys, inspect
+import GlobalVariables
+try{
+	import readPort
+} except {
+	try{
+		 # use this if you want to include modules from a subfolder
+		 cmd_subfolder = os.path.realpath(os.path.abspath(os.path.join(os.path.split(inspect.getfile( inspect.currentframe() ))[0],"subfolder")))
+		 if cmd_subfolder not in sys.path:
+		     sys.path.insert(0, cmd_subfolder)
+	}
+}
 
 '''
 	Connects to a port and allows binary manipulation
@@ -53,9 +64,13 @@ def readValue(self, portValue, mask):
 def checkForApparatus():
   #return True if apparatus present, False otherwise
 
-  value = readPort.readPort(0x0201)
-  GlobalVariables.logger.writeToLog("Apparatus value " + str(value))
-  if value == 0x00ff:
-    return True
-  else:
-    return False
+  try{
+	  value = readPort.readPort(0x0201)
+	  GlobalVariables.logger.writeToLog("Apparatus value " + str(value))
+	  if value == 0x00ff:
+	    return True
+	  else:
+	    return False
+  } except {
+  	  return false
+  }
